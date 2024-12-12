@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dynamic Text Output</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+      }
+      .input-group {
+        display: flex;
+        margin-bottom: 20px;
+      }
+      .input-group input {
+        width: 200px;
+        padding: 5px;
+        font-size: 16px;
+      }
+      .input-group button {
+        margin-left: 10px;
+        padding: 5px 10px;
+        font-size: 16px;
+      }
+      #output {
+        margin-top: 20px;
+      }
+      .text-item {
+        background-color: #f1f1f1;
+        padding: 10px;
+        margin: 5px 0;
+        border-radius: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="input-group">
+      <input type="text" id="inputText" placeholder="Enter text here" />
+      <button onclick="addText()">입력</button>
+      <button onclick="viewAll()">전체 조회</button>
+    </div>
+
+    <div id="output"></div>
+
+    <script>
+      function addText() {
+        const input = document.getElementById("inputText").value;
+        if (input) {
+          document.getElementById("inputText").value = "";
+
+          // POST 요청을 보낼 URL
+          const url =
+            "http://여기를 지우고 EC2의 퍼블릭 IPv4 DNS 붙여넣기/content";
+
+          fetch(url, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ text: input }),
+          })
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error("POST request failed");
+              }
+              return response.json();
+            })
+            .then((data) => {
+              console.log("POST 성공:", data);
+            })
+            .catch((error) => {
+              console.error("POST 실패:", error);
+            });
+        }
+      }
+
+      function viewAll() {
+        // GET 요청을 보낼 URL
+        const url =
+          "http://여기를 지우고 EC2의 퍼블릭 IPv4 DNS 붙여넣기/content";
+
+        fetch(url)
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("GET request failed");
+            }
+            return response.json();
+          })
+          .then((data) => {
+            displayTexts(data.map((item) => JSON.stringify(item)));
+          })
+          .catch((error) => {
+            console.error("GET 실패:", error);
+          });
+      }
+
+      function displayTexts(texts) {
+        const outputDiv = document.getElementById("output");
+        outputDiv.innerHTML = "";
+        texts.forEach((text) => {
+          const textItem = document.createElement("div");
+          textItem.className = "text-item";
+          textItem.textContent = text;
+          outputDiv.appendChild(textItem);
+        });
+      }
+    </script>
+  </body>
+</html>

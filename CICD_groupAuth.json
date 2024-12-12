@@ -1,0 +1,20 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "autoscaling:*",
+                "codedeploy:*",
+                "ec2:*",
+                "lambda:*",
+                "elasticloadbalancing:*",
+                "s3:*",
+                "cloudwatch:*",
+                "logs:*",
+                "sns:*"
+            ],
+            "Resource": "*"
+        }
+    ]
+}

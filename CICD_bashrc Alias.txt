@@ -1,0 +1,6 @@
+alias rmf='rm appspec.yml elice-0.0.1-SNAPSHOT.jar elice-0.0.1-SNAPSHOT-plain.jar start.sh stop.sh'
+alias castop='sudo service codedeploy-agent stop'
+alias castatus='sudo service codedeploy-agent status'
+alias castart='sudo service codedeploy-agent start'
+alias rmroot='sudo rm -rf /opt/codedeploy-agent/deployment-root'
+alias calog='cat /var/log/aws/codedeploy-agent/codedeploy-agent.log'

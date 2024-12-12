@@ -1,0 +1,44 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 22
+    commands:
+      - echo "Installing dependencies...."
+      - npm install
+
+  pre_build:
+    commands:
+      - echo "Setting up environment variables..."
+      - echo "DB_HOST=$DB_HOST" >> .env
+      - echo "DB_USERNAME=$DB_USERNAME" >> .env
+      - echo "DB_PASSWORD=$DB_PASSWORD" >> .env
+      - echo "DB_NAME=$DB_NAME" >> .env
+      - echo "DB_PORT=$DB_PORT" >> .env
+
+  build:
+    commands:
+      - echo "Build started on `date`"
+      - npm run build
+      - echo "Build completed on `date`"
+
+  post_build:
+    commands:
+      - echo "Post-build steps"
+      - ls -l
+      - echo "Build completed. Preparing to deploy."
+
+artifacts:
+  files:
+    - .env
+    - appspec.yml
+    - dist/**
+    - scripts/*
+    - package.json
+    - package-lock.json
+  discard-paths: yes
+
+cache:
+  paths:
+    - node_modules/**/*
