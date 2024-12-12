@@ -3,7 +3,9 @@ import { Test } from "./sequelize";
 
 const rootRouter = Router();
 
-rootRouter.get("/", (req: Request, res: Response) => res.send("김선규"));
+rootRouter.get("/", (req: Request, res: Response) =>
+  res.send("김선규!123123@@@@")
+);
 
 rootRouter.get("/content", async (req: Request, res: Response) => {
   const tests = await Test.findAll({});
