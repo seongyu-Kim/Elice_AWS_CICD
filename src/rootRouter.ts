@@ -4,7 +4,7 @@ import { Test } from "./sequelize";
 const rootRouter = Router();
 
 rootRouter.get("/", (req: Request, res: Response) =>
-  res.send("Hello Elice!!!")
+  res.send("김선규!!!!!!!!!!!!")
 );
 
 rootRouter.get("/content", async (req: Request, res: Response) => {
